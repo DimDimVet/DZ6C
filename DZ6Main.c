@@ -1,19 +1,20 @@
 #include <stdio.h>
 #include <stdbool.h>
+#define SIZE 15
+#define VOL 9
 
-int const size = 5;
 char oneWrite[] = "1 - Output 0-9 While cycling";
 char twoWrite[] = "2 - Tabl Pythagoras";
 char threeWrite[] = "3 - Numbers in that sequence";
 char zeroWrite[] = "0 - Stop run DZ6";
-int argI = 9; // по заданию значение 9
+int argI = VOL; // по заданию значение 9
 //
 void menuConsole();
 void whileCycling();
 void tablPythagoras();
 void numberSequence();
 void printInDataConsole(int volume[], int size);
-void printInDataConsole1(int volume[], int size);
+void printSeqDataConsole(int volume[], int size);
 //
 int main()
 {
@@ -74,38 +75,42 @@ void tablPythagoras()
 }
 void numberSequence()
 {
-
     int inVolume;
-    int volume[5] = {};
-    int volumeSequence[5] = {};
-    int temp = 0;
-    int temp1 = 0;
+    int volume[SIZE] = {};
 
     while (inVolume != 0)
     {
         scanf("%d", &inVolume);
-        for (int i = 0; i < size; i++)
+        for (int i = 0; i < SIZE; i++)
         {
             if (volume[i] == 0)
             {
                 volume[i] = inVolume;
-                printInDataConsole(volume, size);
+                printInDataConsole(volume, SIZE);
                 break;
             }
+            else{break;}
         }
 
-        for (int y = 0; y < size; y++)
-        {
-            volumeSequence[y] = 0;
-        }
-
-        for (int i = 0; i < size; i++)
-        {
-
-        }
-
-        printInDataConsole1(volumeSequence, size);
+        sequenceData(volume, SIZE);
     }
+}
+void sequenceData(int volumeSequence[], int size)
+{
+    int temp;
+    for (int i = 0; i < size - 1; i++)
+    {
+        for (int j = 0; j < size - i - 1; j++)
+        {
+            if (volumeSequence[j] > volumeSequence[j + 1])
+            {
+                temp = volumeSequence[j];
+                volumeSequence[j] = volumeSequence[j + 1];
+                volumeSequence[j + 1] = temp;
+            }
+        }
+    }
+    printSeqDataConsole(volumeSequence, size);
 }
 void printInDataConsole(int volume[], int size)
 {
@@ -119,9 +124,9 @@ void printInDataConsole(int volume[], int size)
     }
     printf("\n");
 }
-void printInDataConsole1(int volume[], int size)
+void printSeqDataConsole(int volume[], int size)
 {
-    printf("in data1 -> ");
+    printf("out seq data -> ");
     for (int i = 0; i < size; i++)
     {
         if (volume[i] != 0)
